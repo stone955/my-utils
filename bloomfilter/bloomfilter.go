@@ -3,6 +3,7 @@ package bloomfilter
 import (
 	"hash"
 	"hash/fnv"
+	"math"
 
 	"github.com/spaolacci/murmur3"
 )
@@ -14,7 +15,7 @@ type BloomFilter struct {
 
 func New() *BloomFilter {
 	bf := &BloomFilter{
-		Bytes: make([]byte, 2^31),
+		Bytes: make([]byte, math.MaxInt16),
 		Hash: []hash.Hash64{
 			fnv.New64(),
 			murmur3.New64(),
@@ -56,4 +57,12 @@ func (bf *BloomFilter) Exists(str string) bool {
 		}
 	}
 	return true
+}
+
+func (bf *BloomFilter) GetFalsePositivesRate(n int) float64 {
+	a := 1 / float64(len(bf.Bytes))
+	b := float64(len(bf.Hash)) * float64(n)
+	c := float64(len(bf.Hash))
+	d := 1 - math.Pow(1-a, b)
+	return math.Pow(d, c)
 }

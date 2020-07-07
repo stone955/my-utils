@@ -42,3 +42,8 @@ func TestBloomFilter_Exists(t *testing.T) {
 	t.Logf("y exists? %v\n", bf.Exists("y"))
 	t.Logf("z exists? %v\n", bf.Exists("z"))
 }
+
+func TestBloomFilter_GetFalsePositivesRate(t *testing.T) {
+	bf := New()
+	t.Logf("FalsePositivesRate= %v\n", bf.GetFalsePositivesRate(100))
+}
