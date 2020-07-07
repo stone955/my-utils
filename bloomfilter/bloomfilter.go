@@ -14,7 +14,7 @@ type BloomFilter struct {
 
 func New() *BloomFilter {
 	bf := &BloomFilter{
-		Bytes: make([]byte, 32),
+		Bytes: make([]byte, 2^31),
 		Hash: []hash.Hash64{
 			fnv.New64(),
 			murmur3.New64(),
