@@ -59,6 +59,7 @@ func (bf *BloomFilter) Exists(str string) bool {
 	return true
 }
 
+// GetFalsePositivesRate 返回 BloomFilter 误报率
 func (bf *BloomFilter) GetFalsePositivesRate(n int) float64 {
 	a := 1 / float64(len(bf.Bytes))
 	b := float64(len(bf.Hash)) * float64(n)
